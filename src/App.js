@@ -9,7 +9,7 @@ function App() {
 
 
   return <Router>
-    <Route exact path="/" component={Satellite} />
+    <Route exact path="/:port" component={Satellite} />
   </Router>
 }
 
