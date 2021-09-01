@@ -73,6 +73,8 @@ const SatelliteOne = (props) => {
             domain = d3.scaleTime().domain([data[0].UnixTimestamp, data[data.length - 1].UnixTimestamp]);
             timeFormatter = (tick) => { return d3.timeFormat('%H:%M:%S')(new Date(tick * 1000)); };
             ticks = domain.ticks(d3.timeSecond.every(1));
+            min = -50
+            max = 50
         }
     }
 
@@ -92,6 +94,8 @@ const SatelliteOne = (props) => {
             domain = d3.scaleTime().domain([data[0].UnixTimestamp, data[data.length - 1].UnixTimestamp]);
             timeFormatter = (tick) => { return d3.timeFormat('%H:%M')(new Date(tick * 1000)); };
             ticks = domain.ticks(d3.timeMinute.every(1));
+            min = -750
+            max = 750
         }
     }
 
@@ -111,6 +115,8 @@ const SatelliteOne = (props) => {
             domain = d3.scaleTime().domain([data[0].UnixTimestamp, data[data.length - 1].UnixTimestamp]);
             timeFormatter = (tick) => { return d3.timeFormat('%H:%M')(new Date(tick * 1000)); };
             ticks = domain.ticks(d3.timeHour.every(1));
+            min = -750
+            max = 750
         }
     }
 
@@ -180,7 +186,7 @@ const SatelliteOne = (props) => {
             {' '}<Button variant="dark" className="btn-primary" onClick={pastMinute} size="sm" >s</Button>{' '}
             <Button variant="dark" onClick={pastHour} size="sm" >M</Button>{' '}
             <Button variant="dark" onClick={pastDay} size="sm" >H</Button>{' '}
-            <Button variant="dark" onClick={allTime} size="sm" >ALL TIME</Button>{' '}
+
         </div>
         {lastMessage !== null ? <LineChart width={1000} height={550} data={data}>
             <XAxis dataKey="UnixTimestamp" scale="time" type="number" domain={domain} tickFormatter={timeFormatter} ticks={ticks} angle={-90} textAnchor="end" height={70} padding={{ right: 20 }} />
