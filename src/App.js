@@ -1,15 +1,21 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import Satellite from './satellite/Satellite';
+import SatelliteOne from './satellite/SatelliteOne';
+import SatelliteTwo from './satellite/SatelliteTwo';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import Bar from './bar/Bar'
 
 function App() {
 
 
 
   return <Router>
-    <Route exact path="/:port" component={Satellite} />
+    <Route component={Bar} />
+    <Switch>
+      <Route exact path="/satellite1" component={SatelliteOne} />
+      <Route exact path="/satellite2" component={SatelliteTwo} />
+    </Switch>
   </Router>
 }
 
