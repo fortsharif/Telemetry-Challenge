@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
 import stringConverter from '../helper/util'
-import { timeFormat } from 'd3-time-format'
 import { Button, Container } from 'react-bootstrap';
 import {
     Line,
@@ -10,10 +9,10 @@ import {
     XAxis,
     YAxis,
     Tooltip,
-    CartesianGrid,
     Legend
 } from 'recharts'
-import moment from 'moment'
+import './satellite.css'
+
 import * as d3 from 'd3'
 
 //Global variables for the default graph
@@ -35,8 +34,9 @@ let timeFormatter = (tick) => { return d3.timeFormat('%H:%M:%S')(new Date(tick *
 let ticks = domain.ticks(d3.timeSecond.every(1));
 
 const SatelliteOne = (props) => {
-    const socketUrl = `ws://localhost:8081`
+    const socketUrl = `ws://localhost:80`
 
+    // on click listener that retrieves past all-time data from get request
     const allTime = async () => {
         const response = await fetch("http://localhost:5000/api/v1/satellite1", {
             method: 'GET'
@@ -52,10 +52,12 @@ const SatelliteOne = (props) => {
         }
     }
 
+    // onclick listener to go to satellite two
     const gotoSatelliteTwo = () => {
         props.history.push('/satellite2')
     }
 
+    // on click listener that retrieves past minute data from get request
     const pastMinute = async () => {
         const response = await fetch("http://localhost:5000/api/v1/satellite1/minute", {
             method: 'GET'
@@ -74,6 +76,7 @@ const SatelliteOne = (props) => {
         }
     }
 
+    // on click listener that retrieves past hour data from get request
     const pastHour = async () => {
         const response = await fetch("http://localhost:5000/api/v1/satellite1/hour", {
             method: 'GET'
@@ -92,6 +95,7 @@ const SatelliteOne = (props) => {
         }
     }
 
+    // on click listener that retrieves past minute data from get request
     const pastDay = async () => {
         const response = await fetch("http://localhost:5000/api/v1/satellite1/day", {
             method: 'GET'
@@ -110,7 +114,9 @@ const SatelliteOne = (props) => {
         }
     }
 
-    const pastWeek = async () => {
+
+    //commented out due to bug
+    /* const pastWeek = async () => {
         const response = await fetch("http://localhost:5000/api/v1/satellite1/week", {
             method: 'GET'
         })
@@ -127,7 +133,7 @@ const SatelliteOne = (props) => {
             timeFormatter = (tick) => { return d3.timeFormat('%D')(new Date(tick * 1000)); };
             ticks = domain.ticks(d3.timeDay.every(1));
         }
-    }
+    } */
 
 
     const {
@@ -167,9 +173,6 @@ const SatelliteOne = (props) => {
             min = Math.round(value)
             max = min * -1
         }
-
-
-
     }
 
     return <Container className='mt-5'>
